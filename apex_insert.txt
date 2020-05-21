@@ -1,0 +1,67 @@
+-----For User----------
+Profile profileId = [SELECT Id FROM Profile WHERE Name = 'Work.com Only User' LIMIT 1];
+  
+User usr = new User();
+usr.LastName = 'Singh';
+usr.FirstName='Aakriti';
+usr.Alias = 'ASingh';
+usr.Email = 'ashok.kumar@spaan.in';
+usr.Username = 'aakriti.singh@spaan.com';
+usr.ProfileId = profileId.id;
+usr.TimeZoneSidKey = 'GMT';
+usr.LanguageLocaleKey = 'en_US';
+usr.EmailEncodingKey = 'UTF-8';
+usr.LocaleSidKey = 'en_US';
+insert usr;
+----------------------------------
+                     
+
+-----For Case----------				 
+		
+Case userCase = new Case();
+userCase.Origin = 'Email';
+insert userCase;
+
+---------------------------
+
+
+Standard User
+Marketing User
+Redmi Support
+Work.com Only User
+
+
+SELECT Name, Status__c FROM Bot_Order__c where Name ='O-12345'
+
+-----For Queue----------
+Group g = new Group(Type='Queue', Name='Queue from Apex');
+insert g;
+
+QueueSObject q = new QueueSObject(SobjectType='Case', QueueId=g.Id);
+insert q;
+
+----------------For case assign to queue-------------------
+Group groupId = [SELECT Id,Name FROM Group where Type='Queue' and Name='Super Squad' LIMIT 1];
+
+Case userCase = new Case();
+userCase.Origin = 'Email';
+userCase.Priority = 'Medium';
+userCase.OwnerId = groupId.id;
+
+insert userCase;
+
+-----------------------------------------------------------------
+
+----------------For case assign to user-------------------
+User userId = [SELECT Id,Name FROM User where Name='spaan 1 IT'];
+
+Case userCase = new Case();
+userCase.Origin = 'Email';
+userCase.Priority = 'Medium';
+userCase.OwnerId = userId.id;
+
+insert userCase;
+
+-----------------------------------------------------------------
+ 
+                     
